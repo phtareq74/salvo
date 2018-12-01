@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Salvo</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="games.css">
+</head>
+
+<body>
+
+
+
+    <div class="container">
+        <div>
+            <h1 class="boardHeader">Leaderboard</h1>
+        </div>
+
+
+        <form id="logout-form">
+            <button id="logoutBtn" class="btn btn-primary">Log out!</button>
+        </form>
+
+        <div id="formlogin">
+            <div class="col-lg-10 col-lg-offset-4">
+                <div class="form-group">
+                    <input type="email" class="form-control" id="inputEmail" placeholder="Email address" required>
+                </div>
+            </div>
+
+            <div class="col-lg-10 col-lg-offset-4">
+                <div class="form-group">
+                    <input type="password" class="form-control" id="inputPassword" placeholder="Password" required>
+                </div>
+            </div>
+            <div>
+                <p id="alertMessage"></p>
+            </div>
+
+
+            <div class="col-lg-10 col-lg-offset-4">
+                <div class="form-group">
+                    <button id="loginBtn" class="btn  btn-warning">Login</button>
+                </div>
+            </div>
+            <div class="col-lg-10 col-lg-offset-4">
+                <div class="form-group">
+                    <button id="signUpBtn" class="btn btn-info">Sign up</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="centerInside">
+            <div id="createGame-form"><button id="createGameBtn">Create a game!</button>
+            </div>
+        </div>
+
+        <div class="toCenter" id="allList">
+            <div class="clearBckgrnd">
+                <div class="centerInside">
+                    <h2 id="newPlayer"></h2>
+                </div>
+
+                <ol id="listGame">
+                </ol>
+            </div>
+        </div>
+
+        <div class="">
+            <div class="clearBckgrndTable">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <td>Name</td>
+                            <td>Total Points</td>
+                            <td>Won</td>
+                            <td>Lost</td>
+                            <td>Tied</td>
+                        </tr>
+                    </thead>
+                    <tbody id="LeaderBoard">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+    <script src="games.js"></script>
+</body>
+
+</html>

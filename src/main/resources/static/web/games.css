@@ -1,0 +1,106 @@
+.boardHeader {
+    text-align: center;
+    font-family: initial;
+    color: #8a1d40;
+}
+
+#logoutBtn {
+display: none;
+}
+#createGameBtn{
+ display: none;   
+}
+#allList{
+ display: none;   
+}
+#allList .clearBckgrnd{
+ 
+    width: 100%;
+}
+logout-form{
+    
+}
+.clearBckgrnd{
+    border: 3px solid rgb(38, 60, 64);
+    border-radius: 10px;
+    width: fit-content;
+    background-color: #e8f6fc;
+}
+.toCenter{
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+}
+.centerInside{
+    display: flex;
+    justify-content: center;
+}
+li{
+    margin-top: 30px;
+
+}
+#newPlayer{
+    font-weight: bold;
+    font-size: 25px;
+}
+
+#allList{
+    width: 600px;
+}
+#listGame li{
+    border-bottom: solid 1px black;
+   
+}
+.reEnterBtn{
+    margin-left: 10px;
+}
+
+
+thead tr td {
+    background-color: antiquewhite;
+}
+tr td{
+    text-align: center;
+}
+
+#login {
+    background-color: aliceblue;
+}
+
+#inputEmail {
+    background: #f7f7f7 none repeat scroll 0 0;
+    border: 1px solid #d4d4d4;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 50%;
+    height: 40px;
+
+}
+
+#inputPassword {
+    background: #f7f7f7 none repeat scroll 0 0;
+    border: 1px solid #d4d4d4;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 50%;
+    height: 40px;
+
+}
+
+
+.btn.btn-warning {
+    border-color: #f0ad4e;
+    color: #ffffff;
+    font-size: 14px;
+    width: 50%;
+    height: 40px;
+    
+}
+
+.btn.btn-info {
+    border-color: #f0ad4e;
+    font-size: 14px;
+    width: 50%;
+    height: 40px;
+   
+}
