@@ -44,7 +44,7 @@ public class GamePlayer {
     public void setGame(Game game) {
         this.game = game;
     }
-    public Object getId(){
+    public long getId(){
         return id;
     }
     public Date getDate(){

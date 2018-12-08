@@ -177,7 +177,7 @@ $(document).ready(function () {
     function createLists(data) {
 //        console.log(data.games)
         for (var i = 0; i < data.games.length; i++) {
-            console.log(i)
+          
             var li = document.createElement("li");
 
             if (data.games[i].gamePlayers[1] != null) {

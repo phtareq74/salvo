@@ -1,15 +1,28 @@
 * {
-    margin: 0;
+    margin: 2px;
     padding: 0;
+}
+
+.grid{
+
+}
+body{
+    background-image: url(Battleship.jpg);
+    background-size: cover;
+    
+/*
+   filter: alpha(Opacity=30);
+  opacity: 0.3;
+*/
+ 
 }
 
 .gameHeader{
     text-align: center;
     font-family: initial;
     color: #8a1d40;
-    height: 150px;
-   
-    background-image: url(Battleship.jpg)
+    height: 80px;
+/*    background-image: url(Battleship.jpg)*/
 }
 .btn-group{
                         
@@ -30,14 +43,14 @@
     text-align: center;
     font-family: sans-serif;
     font-size: 16px;
-     width: 40px;
-    height: 40px; 
+     width: 10%;
+    height: 10%; 
     background-color: #e9ecef;
 }
 
 .table-bordered td {
-    width: 40px;
-    height: 40px;
+    width: 10%;
+    height: 10%;
     border: solid 1px #3d5267;
     text-align: center;
 }
@@ -77,7 +90,7 @@
 
 
 #port{
- width: 160px;
+
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -112,22 +125,22 @@
 }
 #Carrier{
   
-     width: 150px;
+     width: 120px;
 }
 #Battleship{
-  width: 130px;  
+  width: 110px;  
    
 }
 #Destroyer{
-    width: 120px;
+    width: 100px;
     
 }
 #Submarine{
-    width: 120px;
+    width: 90px;
     
 }
 #PatrolBoat{
-    width: 110px;
+    width: 80px;
     
 }
 #CarrierContainer,#BattleshipContainer,#DestroyerContainer,#SubmarineContainer,#PatrolBoatContainer{
@@ -146,10 +159,24 @@
     color: white;
 }
 .hitcell {
-/*    background-image: url("comicExplosion.png");*/
-    background-color: red;
+    background-image: url("comicExplosion.png");
+       background-size: cover;
+    background-position:center;
     border-radius: 45px;
     border: solid 1px lightblue;
     text-align: center;
 
+}
+.sunkShip{
+   background-color: black;
+   font-size: 14px;
+    color: black;
+}
+#messageAlert{
+    color: white;
+    align-self: center;
+  
+}
+#messageContainer{
+    border: 1px #6c757d solid;
 }

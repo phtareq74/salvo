@@ -5,7 +5,10 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
 @Entity
 public class Ship {
     @Id
@@ -22,6 +25,10 @@ public class Ship {
     @ElementCollection
     @Column(name = "locations")
     private List<String> locations;
+
+    @ElementCollection
+    @Column(name="hit")
+    private Set<String> hits = new HashSet<>();
 
 
 
@@ -50,6 +57,18 @@ public class Ship {
 
     public void setLocations(List<String> locations) {
         this.locations = locations;
+    }
+    public Set<String> getHits() {
+        return hits;
+    }
+    public void addHits(String hit) {
+        this.getHits().add(hit);
+    }
+
+    public boolean isSunk(){
+      return (this.getLocations().size() == this.getHits().size());
+
+
     }
 
     @JsonIgnore

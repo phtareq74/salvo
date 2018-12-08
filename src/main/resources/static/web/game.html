@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Ships Locations</title>
+    <title>Game vieuw</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" href="game.css">
 </head>
@@ -18,36 +18,32 @@
         <div class="gameHeader">
             <h1>Game screen</h1>
         </div>
-        <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" id="leaderBTN" class="btn btn-secondary">go to Leaderboard</button>
-            <button type="button" id="logOutBtn" class="btn btn-secondary">Log out</button>
+        <div class="d-flex mb-3 bg-secondary">
+           <div class="p-2 mr-auto bg-warning"> <button type="button" id="leaderBTN" class="btn btn-warning">go to Leaderboard</button></div>
+            <div id="messageContainer" class="p-2  align-self-center">
+            <p id="messageAlert"></p>
+        </div>
+           <div class="p-2 ml-auto bg-warning"> <button type="button" id="logOutBtn" class="btn btn-warning ">Log out</button></div>
+        </div>
 
-        </div>
-        <!--
-         <div class="row">
         <div>
-            <button id="leaderBTN" class="btn btn-primary">go to Leaderboard</button>
+            <p id="messageAlert"></p>
         </div>
-        <div>
-            <button id="logOutBtn" class="btn btn-primary">Log out</button>
-         </div>
-        </div>
--->
 
         <div class="row">
             <div class="col">
                 <h2 id="player"></h2>
-                <table class="table table-bordered">
+                <table class="table table-bordered grid col-sm-4">
                     <thead id="table-headers" class="table-primary">
                     </thead>
                     <tbody id="table-rows" class="table-success">
                     </tbody>
                 </table>
             </div>
-            <div class="col">
-                <button id="placing" class=" btn btn-info">Place ships</button>
-
-                <div id="port">
+          
+            <div id="port" class="col-sm-2">
+                <div class="col">
+                    <button id="placing" class=" btn btn-info">Place ships</button>
                     <div id="CarrierContainer">
                         <img src="aircraft2.png" id="Carrier" class="draggable " data-size="5" data->
                         <p class="shipText">Carrier 5cells</p>
@@ -73,20 +69,20 @@
                         <p class="shipText">PatrolBoat 2cells</p>
                     </div>
                 </div>
-                <div>
-                <button id="clearBoard" class=" btn btn-info">Clear board</button>
-                    </div>
-                <div>
-                <button id="saveShips" class=" btn btn-info">Save ships</button>
-                    </div>
-                <div>
-                <button id="saveSalvos" class=" btn btn-info">Save salvos</button>
-                </div>
             </div>
-
+            <div>
+                <button id="clearBoard" class=" btn btn-info">Clear board</button>
+            </div>
+            <div>
+                <button id="saveShips" class=" btn btn-info">Save ships</button>
+            </div>
+            <div>
+                <button id="saveSalvos" class=" btn btn-info">Save salvos</button>
+            </div>
+            
             <div class="col">
-                <h2 id="opponent"></h2>
-                <table class="table table-bordered">
+                <h2 id="opponent">Waiting for opponent</h2>
+                <table class="table table-bordered col-sm-4">
                     <thead id="opponent-table-headers" class="table-primary">
                     </thead>
                     <tbody id="opponent-table-rows" class="table-success">
@@ -94,8 +90,9 @@
                 </table>
             </div>
         </div>
-
-
+        <div id="hitoryTable">
+        </div>
+        
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

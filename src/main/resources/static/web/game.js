@@ -7,6 +7,7 @@ $(document).ready(function () {
     var opponent_cell = "";
     var jsonURL = "";
     var urlParam = "";
+    var turnNumber = 0;
 
     $.urlParam = function (gp) {
         var results = new RegExp('(gp=\\d*)').exec(window.location.href);
@@ -33,6 +34,7 @@ $(document).ready(function () {
             .then(function (response) {
                 return response.json()
                     .then(function (data) {
+                        turnNumber = data.lastTurn;
                         console.log(data);
                         showHide(data);
                         getHeadersHtml();
@@ -43,18 +45,18 @@ $(document).ready(function () {
                         createPlayerInfo(data);
                         createOpponentInfo(data);
                         getPlayerName(data);
-                        getSalvos("Enemy_", data.user_salvo, enemy_ships, data);
-                        getSalvos("User_", data.opponent_salvo, data.ships, data);
-                        postShips(data, allShips);
-                        postSalvos(data);
-                        shootSalvos ();
                         $("#placing").click(function () {
                             listenToEvents();
-
-                        })
-
+                        });
+                        postShips(data, allShips);
+                        postSalvos(data);
+                        shootSalvos();
+                        
+                        getGameHistory(data);
+                        getSalvos("Enemy_", data.user_salvo, enemy_ships, data);
+                        getSalvos("User_", data.opponent_salvo, data.ships, data);
+                    getHisAndSinks(data);
                     })
-
             })
 
             .catch(function (error) {
@@ -132,7 +134,6 @@ $(document).ready(function () {
 
     function getShipLocations(data) {
         var ship = data.ships;
-        console.log(ship);
         $.each(ship, function (index, ship) {
             $.each(ship.locations, function (i, location) {
                 $("#User_" + location).addClass('ship-placed')
@@ -149,7 +150,6 @@ $(document).ready(function () {
             $.each(ship.locations, function (i, location) {
                 opponent_loc = "Enemy_" + location;
                 enemy_ships.push(opponent_loc);
-                console.log(enemy_ships);
             })
         })
     }
@@ -215,20 +215,63 @@ $(document).ready(function () {
     $("#opponent-table-headers").html(getHeadersHtml());
     $("#opponent-table-rows").html(getOpponentRowsHtml());
     var grid2 = document.getElementById("opponent-table-rows");
+
     function getSalvos(grid, salvos, ships, data) {
+
+
         var salvo = salvos;
         $.each(salvo, function (index, salvo) {
             $.each(salvo.locations, function (i, cell) {
                 opponent_cell = cell;
-                $("#" + grid + opponent_cell).addClass("opcell");
+               // $("#" + grid + opponent_cell).addClass("opcell");
                 $("#" + grid + opponent_cell).text(salvo.turn);
                 if ($("#" + grid + opponent_cell).hasClass('ship-placed')) {
                     $("#" + grid + opponent_cell).addClass("hitcell");
                 } else {
                     $("#" + grid + opponent_cell).addClass("missedcell");
                 }
+
             })
         })
+        var hitsData;
+        var hitsEnemy;
+        var hitsloc;
+        var output;
+        for (var i = 0; i < data.hitsInfo.length; i++) {
+            hitsData = data.hitsInfo[i];
+            for (var j in hitsData.hitsOnEnemy) {
+                hitsEnemy = hitsData.hitsOnEnemy[j];
+                for (var h = 0; h < hitsEnemy.hits.length; h++) {
+                    hitsloc = hitsEnemy.hits[h];
+                    $("#" + "Enemy_" + hitsloc).addClass("hitcell");
+                }
+            }
+        }
+
+    }
+
+
+    function getHisAndSinks(data) {
+        var oppenetSunkShip = [];
+        var userSunkShip = [];
+        for (var i = 0; i < data.opponent_sunkShips.length; i++) {
+            oppenetSunkShip = data.opponent_sunkShips[i].locations;
+            console.log(oppenetSunkShip);
+            $.each(oppenetSunkShip, function (j, el) {
+                $("#" + "Enemy_" + el).addClass("sunkShip");
+                $("#" + "Enemy_" + el).text("s");
+                // $("#messageAlert" ).html("sunk");
+            })
+        }
+        for (var i = 0; i < data.user_sunkShips.length; i++) {
+            userSunkShip = data.user_sunkShips[i].locations;
+
+            $.each(userSunkShip, function (j, el) {
+                $("#" + "User_" + el).addClass("sunkShip");
+                $("#" + "User_" + el).text("s");
+            })
+        }
+
     }
 
     var allShips = {
@@ -299,15 +342,10 @@ $(document).ready(function () {
                 $("#saveShips").show();
 
         }
-
-
-
         $("#Carrier,#Battleship,#Destroyer,#Submarine,#PatrolBoat").click(function () {
             shipID = this.id;
             console.log(shipID);
-
             placeShips(shipID, grid1);
-
         })
     }
 
@@ -516,16 +554,13 @@ $(document).ready(function () {
                             listenToEvents();
                             shipToSave.forEach(ID => {
                                 var locID = $(ID).attr('id').split("_")[1];
-                                if(!shipLocation.includes(locID)){
-                                shipLocation.push(locID);
+                                if (!shipLocation.includes(locID)) {
+                                    shipLocation.push(locID);
+
                                 }
-                                console.log(shipLocation);
                             });
-
-
+                            shipToSave = [];
                         }
-
-
                     }
                 }
             });
@@ -543,7 +578,7 @@ $(document).ready(function () {
             console.log(shipLocation);
 
         });
-        
+
     }
 
     function postShips(data, allShips) {
@@ -592,82 +627,158 @@ $(document).ready(function () {
 
     }
 
-    
+
     var userShots = [];
     var userSalvos = [];
-//    var opponentSalvos = [];
-    var turnNumber= 0;
-    
-    function shootSalvos (){
-    $("#opponent-table-rows td").click(function () {
-        if (userSalvos.length < 5 ){
-             
-            if (!$(this).hasClass('table-primary')) {
-                if($(this).hasClass('preSalvo')){
-                     $(this).removeClass('preSalvo');
-                    var index = userShots.indexOf(this);
-                 userShots.splice(index,1);
-                 userSalvos.splice(index,1)
-            }else if(!$(this).hasClass('preSalvo') && !$(this).hasClass('missedcell')){
-              
-                userShots.push(this);
-            $(userShots).addClass('preSalvo');
-        console.log(userShots);
-        userShots.forEach( locID =>{
-            var salvoLoc = $(locID).attr('id').split("_")[1];
-            if (!userSalvos.includes(salvoLoc)) {
-                userSalvos.push(salvoLoc);
-                if(userSalvos.length == 5){
-                    $ ("#saveSalvos").show();
-                    turnNumber += 1
+    //    var opponentSalvos = [];
+
+
+    function shootSalvos() {
+
+        $("#opponent-table-rows td").click(function () {
+            if (userSalvos.length < 5) {
+
+                if (!$(this).hasClass('table-primary')) {
+                    if ($(this).hasClass('preSalvo')) {
+                        $(this).removeClass('preSalvo');
+                        var index = userShots.indexOf(this);
+                        userShots.splice(index, 1);
+                        userSalvos.splice(index, 1)
+                    } else if (!$(this).hasClass('preSalvo') && !$(this).hasClass('missedcell')) {
+
+                        userShots.push(this);
+                        $(userShots).addClass('preSalvo');
+                        console.log(userShots);
+                        userShots.forEach(locID => {
+                            var salvoLoc = $(locID).attr('id').split("_")[1];
+                            if (!userSalvos.includes(salvoLoc)) {
+                                userSalvos.push(salvoLoc);
+                                console.log(turnNumber)
+
+                                if (userSalvos.length == 5) {
+                                    turnNumber += 1
+                                    console.log(turnNumber);
+                                    $("#saveSalvos").show();
+
+                                }
+                            }
+                        })
+
+                    }
+
+                } else {
+                    alert("shoot another cell");
+
                 }
+            } else {
+                alert("You can't shoot more than 5");
+
             }
-                
+
         })
-            }
-    }else
-        {
-            alert("shoot another cell");
-        
-                }
-            
-            console.log(userSalvos);
-    }else{
-        alert("You can't shoot more than 5");
-        
     }
-        
-})
-}
 
     function postSalvos(data) {
-       $ ("#saveSalvos").click(function () {
+        $("#saveSalvos").click(function () {
 
-        var gpid = urlParam;
-    
-        console.log(gpid);
-        fetch("/api/games/players/" + gpid + "/salvos", {
-                credentials: 'include',
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
+            var gpid = urlParam;
 
-                body: JSON.stringify([{
+            console.log(gpid);
+            fetch("/api/games/players/" + gpid + "/salvos", {
+                    credentials: 'include',
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+
+                    body: JSON.stringify([{
                         turn: turnNumber,
                         locations: userSalvos
 
-                } ]),
-            })
-            .then(r => {
-                console.log(r)
-            window.location.href = "/web/game.html?gp=" + gpid;
-            
-                    console.log(locations);                   
-            })
-            .catch(e => console.log(e))
-                          });
+                }]),
+                })
+                .then(r => {
+                    console.log(r)
+
+                    window.location.href = "/web/game.html?gp=" + gpid;
+
+                    console.log(locations);
+                })
+                .catch(e => console.log(e))
+        });
+
+    }
+
+    function getGameHistory(data) {
+        var shipIsHit;
+        var uHits;
+        var hitsUser;
+        for (var i = 0; i < data.hitsInfo.length; i++) {
+            var hitsData = data.hitsInfo[i];
+        }
+        for (var j in hitsData.hitsOnEnemy) {
+            var hitsEnemy = hitsData.hitsOnEnemy[j];
+        }
+        for (var u in hitsData.hitsOnUser) {
+            hitsUser = hitsData.hitsOnUser[u];
+            if (hitsUser.hitsTillNow > 0) {
+                shipIsHit = u;
+                uHits = hitsUser.hitsTillNow;
+                console.log(uHits);
+
+                var historyInfo = '';
+                historyInfo += '<table class="table table-bordered">' +
+                    '<tr><h3>Game History</h3></tr>' +
+                    '<tr>' +
+                    '<th>Turn</th>' +
+                    '<th>Hits on user</th>' +
+                    '<th>Hits on enemy</th>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td></td>' +
+                    '<td>' +
+                    '<table>' +
+                    '<tr>' +
+                    '<th>Ship type</th>' +
+                    '<th>All hits</th>' +
+                    '<th>Locations</th>' +
+                    '<th>Ship status</th>' +
+                    '<th>Ships left</th>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td>' +
+
+                    '</td>' +
+                    '<td></td>' +
+                    '<td></td>' +
+                    '<td></td>' +
+                    '<td></td>' +
+                    '</tr>' +
+                    '</table></td>' +
+                    '<td><table>' +
+                    '<tr>' +
+                    '<th>Ship type</th>' +
+                    '<th>All hits</th>' +
+                    '<th>Locations</th>' +
+                    '<th>Ship status</th>' +
+                    '<th>Ships left</th>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<td></td>' +
+                    '<td></td>' +
+                    '<td></td>' +
+                    '<td></td>' +
+                    '<td></td>' +
+                    '</tr>' +
+                    '</table></td>' +
+                    '</tr>' +
+                    '</table>'
+
+                $("#hitoryTable").html(historyInfo);
+
+            }
+        }
 
     }
 });
