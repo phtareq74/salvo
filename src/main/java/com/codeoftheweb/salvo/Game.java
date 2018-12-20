@@ -30,7 +30,7 @@ public class Game {
         this.date = new Date();
     }
 
-
+    public boolean gameOver;
 
     public void addGamePlayer(GamePlayer gamePlayer) {
                 gamePlayer.setGame(this);
@@ -70,9 +70,19 @@ public class Game {
         return scores;
     }
 
+    public boolean isFull() {
+        return this.getGamePlayers().size() > 1;
+    }
 
     public boolean hasScore () {
         return (!getScores().isEmpty());
+    }
+    public boolean isGameOver() {
+        return gameOver;
+    }
+
+    public void setGameOver(boolean gameOver) {
+        this.gameOver = gameOver;
     }
 
 

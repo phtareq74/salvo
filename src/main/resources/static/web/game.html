@@ -18,81 +18,93 @@
         <div class="gameHeader">
             <h1>Game screen</h1>
         </div>
-        <div class="d-flex mb-3 bg-secondary">
-           <div class="p-2 mr-auto bg-warning"> <button type="button" id="leaderBTN" class="btn btn-warning">go to Leaderboard</button></div>
+        <div class="d-flex mb-3 bg-secondary mainBar">
+            <div class="p-2 mr-auto bg-warning"> <button type="button" id="leaderBTN" class="btn btn-warning">go to Leaderboard</button></div>
             <div id="messageContainer" class="p-2  align-self-center">
-            <p id="messageAlert"></p>
-        </div>
-           <div class="p-2 ml-auto bg-warning"> <button type="button" id="logOutBtn" class="btn btn-warning ">Log out</button></div>
+                <p id="messageAlert"></p>
+            </div>
+            <div class="p-2 ml-auto bg-warning"> <button type="button" id="logOutBtn" class="btn btn-warning ">Log out</button></div>
         </div>
 
+        <!--
         <div>
             <p id="messageAlert"></p>
         </div>
-
-        <div class="row">
-            <div class="col">
-                <h2 id="player"></h2>
-                <table class="table table-bordered grid col-sm-4">
+-->
+        <div id="tablesContainer" class="row">
+            
+            <div class="coL gridContainer">
+                 <div id="sunkUShipsTable"></div>
+                <div>
+                    <h2 id="player"></h2>
+                </div>
+                <table class="table table-bordered grid ">
                     <thead id="table-headers" class="table-primary">
                     </thead>
                     <tbody id="table-rows" class="table-success">
                     </tbody>
                 </table>
             </div>
-          
-            <div id="port" class="col-sm-2">
+
+            <div id="port" class="">
                 <div class="col">
-                    <button id="placing" class=" btn btn-info">Place ships</button>
+                    <div>
+                        <button id="clearBoard" class=" btn btn-info">Clear board</button>
+                    </div>
+                    <div>
+                        <button id="placing" class=" btn btn-info">Place ships</button>
+                    </div>
+                    <div>
+                        <button id="saveShips" class=" btn btn-info">Save ships</button>
+                    </div>
+                    <div>
+                        <button id="saveSalvos" class=" btn btn-info">Save salvos</button>
+                    </div>
+
                     <div id="CarrierContainer">
                         <img src="aircraft2.png" id="Carrier" class="draggable " data-size="5" data->
                         <p class="shipText">Carrier 5cells</p>
                     </div>
-                    <br>
+                   
                     <div id="BattleshipContainer">
                         <img src="destroyer.png" id="Battleship" class="draggable " data-size="4">
                         <p class="shipText">Battleship 4cells</p>
                     </div>
-                    <br>
+                  
                     <div id="DestroyerContainer">
                         <img src="destro2.png" id="Destroyer" class="draggable " data-type="submarine" data-size="3">
                         <p class="shipText">Destroyer 3cells</p>
                     </div>
-                    <br>
+                   
                     <div id="SubmarineContainer">
                         <img src="submarine.png" id="Submarine" class="draggable " data-type="destroyer" data-size="3">
                         <p class="shipText">Submarine 3cells</p>
                     </div>
-                    <br>
+                   
                     <div id="PatrolBoatContainer">
                         <img src="warPatrolBoat.png" id="PatrolBoat" class="draggable " data-type="patrolBoat" data-size="2">
                         <p class="shipText">PatrolBoat 2cells</p>
                     </div>
                 </div>
             </div>
-            <div>
-                <button id="clearBoard" class=" btn btn-info">Clear board</button>
-            </div>
-            <div>
-                <button id="saveShips" class=" btn btn-info">Save ships</button>
-            </div>
-            <div>
-                <button id="saveSalvos" class=" btn btn-info">Save salvos</button>
-            </div>
-            
-            <div class="col">
-                <h2 id="opponent">Waiting for opponent</h2>
-                <table class="table table-bordered col-sm-4">
+            <div class="col gridContainer">
+                 <div id="sunkEShipsTable"></div>
+                <div>
+                    <h2 id="opponent"></h2>
+                </div>
+                <table class="table table-bordered grid">
                     <thead id="opponent-table-headers" class="table-primary">
                     </thead>
                     <tbody id="opponent-table-rows" class="table-success">
                     </tbody>
                 </table>
             </div>
+           
         </div>
+
         <div id="hitoryTable">
         </div>
-        
+
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

@@ -16,6 +16,9 @@ $(document).ready(function () {
     $("#signUpBtn").click(function () {
         createPlayer();
     });
+//    $("#createGameBtn").click(function () {
+//        createGame();
+//    });
 
     getGamesData();
 
@@ -103,7 +106,7 @@ $(document).ready(function () {
             })
             .then(r => {
                 if (r.status == 200) {
-               window.location.href = "/web/games.html"
+
                     console.log(r)
                 }
             })
@@ -174,7 +177,7 @@ $(document).ready(function () {
     function createLists(data) {
 //        console.log(data.games)
         for (var i = 0; i < data.games.length; i++) {
-            console.log(i)
+          
             var li = document.createElement("li");
 
             if (data.games[i].gamePlayers[1] != null) {
@@ -201,13 +204,14 @@ $(document).ready(function () {
             date = date.toLocaleString();
 
             li.innerHTML = date + ": " + p1 + " --vs-- " + p2;
-          
+
             if (data.currentplayer != null &&
                 p2 == "Waiting for player to join!" &&
                 p1 !== data.currentplayer.userName) {
-             li.append(joinBtn);
-              
-            } document.getElementById("listGame").appendChild(li);
+                li.append(joinBtn);
+            }
+
+            document.getElementById("listGame").appendChild(li);
 
             $(".joinGameBtn").click(function () {
                 var gameID = $(this).data("gid");
@@ -235,7 +239,7 @@ $(document).ready(function () {
                     data.currentplayer.userName == p2) {
                     var btn = document.createElement("button");
                     btn.innerHTML = "Re-enter game ";
-                    li.append(btn); 
+                    li.append(btn);
                 }
 
                 for (var j = 0; j < data.games[i].gamePlayers.length; j++) {

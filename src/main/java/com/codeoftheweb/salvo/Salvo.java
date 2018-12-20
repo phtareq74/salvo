@@ -25,6 +25,10 @@ public class Salvo {
 
     public Salvo() {}
 
+    public void setTurn(Integer turn) {
+        this.turn = turn;
+    }
+
     @ElementCollection
     @Column(name = "locations")
     private List<String> locations;

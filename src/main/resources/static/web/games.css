@@ -10,22 +10,28 @@ display: none;
 #createGameBtn{
  display: none;   
 }
+
 #allList{
- display: none;   
-}
-#allList .clearBckgrnd{
- 
+  border: 1px solid black;
+    border-radius: 10px;
+    width: fit-content;
+    background-color: beige;;
     width: 100%;
+    display: none; 
 }
 logout-form{
     
 }
-.clearBckgrnd{
-    border: 3px solid rgb(38, 60, 64);
-    border-radius: 10px;
-    width: fit-content;
-    background-color: #e8f6fc;
+/*
+.mainBar{
+    height: 4%;
 }
+*/
+#listContainer{
+    width: 100%;
+    background-color: beige;
+}
+
 .toCenter{
     display: flex;
     justify-content: center;
@@ -44,9 +50,7 @@ li{
     font-size: 25px;
 }
 
-#allList{
-    width: 600px;
-}
+
 #listGame li{
     border-bottom: solid 1px black;
    
@@ -56,11 +60,13 @@ li{
 }
 
 
-thead tr td {
-    background-color: antiquewhite;
-}
-tr td{
+thead tr th {
+    background-color: #735b5b;
     text-align: center;
+    color: white; 
+}
+tr th{
+    
 }
 
 #login {
@@ -87,7 +93,10 @@ tr td{
 
 }
 
-
+.clearBckgrndTable{
+    border-radius: 10px;
+/*    width: 50%;*/
+}
 .btn.btn-warning {
     border-color: #f0ad4e;
     color: #ffffff;
@@ -104,3 +113,4 @@ tr td{
     height: 40px;
    
 }
+

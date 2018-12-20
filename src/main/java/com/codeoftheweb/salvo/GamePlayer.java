@@ -16,6 +16,7 @@ public class GamePlayer {
     @GenericGenerator(name = "native", strategy = "native")
     private long id;
     private Date date;
+    private GameState state;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="player_id")
@@ -74,6 +75,23 @@ public class GamePlayer {
     public  void  addSalvo(Salvo salvo){
         this.salvos.add(salvo);
         salvo.setGamePlayer(this);
+    }
+    public enum GameState{
+        WaitingForShips,
+        WaitingForSecondPlayer,
+        WaitingForSalvos,
+        WaitingForEnemySalvo,
+        WaitingForEnemyShips,
+        MyTurn,
+        GameOver
+    }
+
+    public GameState getState() {
+        return state;
+    }
+
+    public void setState(GameState state) {
+        this.state = state;
     }
 
 }

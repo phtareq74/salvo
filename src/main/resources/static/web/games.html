@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Salvo Game</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" href="games.css">
 </head>
 
@@ -13,78 +13,74 @@
 
 
     <div class="container">
-        <div>
-            <h1 class="boardHeader">Leaderboard</h1>
+        <div class="boardHeader">
+            <h1>Leaderboard</h1>
         </div>
+        
+            <div class="d-flex mb-3  bg-secondary mainBar">
+                <div class="p-2 mr-auto bg-warning"> <button type="button" id="createGameBtn" class="btn btn-warning">Create a game!</button>
+                </div>
 
-
-        <form id="logout-form">
-            <button id="logoutBtn" class="btn btn-primary">Log out!</button>
-        </form>
-
-        <div id="formlogin">
-            <div class="col-lg-10 col-lg-offset-4">
-                <div class="form-group">
-                    <input type="email" class="form-control" id="inputEmail" placeholder="Email address" required>
+                <div class="p-2 ml-auto bg-warning"> <button type="button" id="logoutBtn" class="btn btn-warning ">Log out</button>
                 </div>
             </div>
 
-            <div class="col-lg-10 col-lg-offset-4">
-                <div class="form-group">
-                    <input type="password" class="form-control" id="inputPassword" placeholder="Password" required>
-                </div>
-            </div>
-            <div>
-                <p id="alertMessage"></p>
-            </div>
 
-
-            <div class="col-lg-10 col-lg-offset-4">
-                <div class="form-group">
-                    <button id="loginBtn" class="btn  btn-warning">Login</button>
-                </div>
-            </div>
-            <div class="col-lg-10 col-lg-offset-4">
-                <div class="form-group">
-                    <button id="signUpBtn" class="btn btn-info">Sign up</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="centerInside">
-            <div id="createGame-form"><button id="createGameBtn">Create a game!</button>
-            </div>
-        </div>
-
-        <div class="toCenter" id="allList">
-            <div class="clearBckgrnd">
-                <div class="centerInside">
-                    <h2 id="newPlayer"></h2>
+<!--       <iframe width="1499" height="538" src="https://www.youtube.com/embed/5LYrN_cAJoA?list=PL4cUxeGkcC9gQcYgjhBoeQH7wiAyZNrYa" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
+            <div id="formlogin">
+                <div class="col-lg-10 col-lg-offset-4">
+                    <div class="form-group">
+                        <input type="email" class="form-control" id="inputEmail" placeholder="Email address" required>
+                    </div>
                 </div>
 
-                <ol id="listGame">
-                </ol>
-            </div>
-        </div>
+                <div class="col-lg-10 col-lg-offset-4">
+                    <div class="form-group">
+                        <input type="password" class="form-control" id="inputPassword" placeholder="Password" required>
+                    </div>
+                </div>
+                <div>
+                    <p id="alertMessage"></p>
+                </div>
 
-        <div class="">
+
+                <div class="col-lg-10 col-lg-offset-4">
+                    <div class="form-group">
+                        <button id="loginBtn" class="btn  btn-warning">Login</button>
+                    </div>
+                </div>
+                <div class="col-lg-10 col-lg-offset-4">
+                    <div class="form-group">
+                        <button id="signUpBtn" class="btn btn-info">Sign up</button>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="toCenter" id="allList">
+                <div id="listContainer">
+
+                    <ol id="listGame">
+                    </ol>
+                     </div>
+            </div>
+
+
             <div class="clearBckgrndTable">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <td>Name</td>
-                            <td>Total Points</td>
-                            <td>Won</td>
-                            <td>Lost</td>
-                            <td>Tied</td>
+                            <th>Name</th>
+                            <th>Total Points</th>
+                            <th>Won</th>
+                            <th>Lost</th>
+                            <th>Tied</th>
                         </tr>
                     </thead>
                     <tbody id="LeaderBoard">
                     </tbody>
                 </table>
             </div>
-        </div>
-
     </div>
 
 

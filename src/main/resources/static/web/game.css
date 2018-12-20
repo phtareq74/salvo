@@ -6,28 +6,38 @@
 .grid{
 
 }
-body{
-    background-image: url(Battleship.jpg);
-    background-size: cover;
-    
-/*
-   filter: alpha(Opacity=30);
-  opacity: 0.3;
-*/
- 
+body {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;
+  margin: 0 auto;
+  z-index: 0;
 }
 
+body::after {
+  background-image: url(Battleship.jpg);
+    background-size: cover;
+  content: "";
+  opacity: 0.2;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: -1;   
+}
 .gameHeader{
     text-align: center;
     font-family: initial;
     color: #8a1d40;
-    height: 80px;
-/*    background-image: url(Battleship.jpg)*/
+    height: 5%;
 }
-.btn-group{
-                        
+.mainBar{
+    height: 4%;
 }
-.btn-secondary{
+
+.container{
     width: 100%;
 }
 .table-success{
@@ -43,14 +53,14 @@ body{
     text-align: center;
     font-family: sans-serif;
     font-size: 16px;
-     width: 10%;
-    height: 10%; 
+     width: 9%;
+    height: 9%; 
     background-color: #e9ecef;
 }
 
-.table-bordered td {
-    width: 10%;
-    height: 10%;
+.grid td {
+    width: 9%;
+    height: 9%;
     border: solid 1px #3d5267;
     text-align: center;
 }
@@ -90,27 +100,19 @@ body{
 
 
 #port{
-
+width: 10%;    
+ height: 80%;
     text-align: center;
-    display: flex;
-    flex-direction: column;
+    
 }
 #placing{
-    display: flex;
- justify-content: center; 
-
+   margin-left: 0px; 
 }
-#saveShips{
+#saveShips, #clearBoard,#saveSalvos{
     display:none;
- 
+   
 }
-#clearBoard{
-   display:none;
- 
-}
-#saveSalvos{
- display:none;   
-}
+
 
 
 /*
@@ -123,28 +125,13 @@ body{
  background-color: #fffeeb;
     opacity: 0.5;
 }
-#Carrier{
-  
-     width: 120px;
-}
-#Battleship{
-  width: 110px;  
-   
-}
-#Destroyer{
-    width: 100px;
-    
-}
-#Submarine{
-    width: 90px;
-    
-}
-#PatrolBoat{
-    width: 80px;
-    
+#Carrier,#Battleship,#Destroyer,#Submarine,#PatrolBoat{
+     width: 80px;
+    height: 40px;
 }
 #CarrierContainer,#BattleshipContainer,#DestroyerContainer,#SubmarineContainer,#PatrolBoatContainer{
    display:none; 
+/*    width: 9%*/
 }
 .shipText{
     color:brown;
@@ -179,4 +166,24 @@ body{
 }
 #messageContainer{
     border: 1px #6c757d solid;
+}
+#tablesContainer{
+    width: 100%;
+    height: 38%;
+}
+.gridContainer{
+    height: 70%;
+    width: 45%;    
+}
+#historyTable{
+    height: 40%;
+    
+}
+.table-bordered th ,.table-bordered td{
+    border: 1px solid #1d2124;
+    text-align: center;
+}
+#sunkUShipsTable, #sunkEShipsTable{
+  height: 10%;
+    width: 100%;   
 }

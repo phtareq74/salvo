@@ -8,7 +8,6 @@ $(document).ready(function () {
     var jsonURL = "";
     var urlParam = "";
     var turnNumber = 0;
-
     $.urlParam = function (gp) {
         var results = new RegExp('(gp=\\d*)').exec(window.location.href);
         if (results == null) {
@@ -51,11 +50,12 @@ $(document).ready(function () {
                         postShips(data, allShips);
                         postSalvos(data);
                         shootSalvos();
-                        
+                        getSunkShips(data);
+                       // timeOut(data,urlParam)
                         getGameHistory(data);
                         getSalvos("Enemy_", data.user_salvo, enemy_ships, data);
                         getSalvos("User_", data.opponent_salvo, data.ships, data);
-                    getHisAndSinks(data);
+                        getHisAndSinks(data);
                     })
             })
 
@@ -191,8 +191,8 @@ $(document).ready(function () {
 
     function getPlayerName(data) {
 
-        $("#player").text(createPlayerInfo(data));
-        $("#opponent").text(createOpponentInfo(data));
+        $("#player").text(createPlayerInfo(data) + " (You)");
+        $("#opponent").text(createOpponentInfo(data) + " (Enemy)");
     }
 
     function getOpponentRowsHtml() {
@@ -223,7 +223,7 @@ $(document).ready(function () {
         $.each(salvo, function (index, salvo) {
             $.each(salvo.locations, function (i, cell) {
                 opponent_cell = cell;
-               // $("#" + grid + opponent_cell).addClass("opcell");
+                // $("#" + grid + opponent_cell).addClass("opcell");
                 $("#" + grid + opponent_cell).text(salvo.turn);
                 if ($("#" + grid + opponent_cell).hasClass('ship-placed')) {
                     $("#" + grid + opponent_cell).addClass("hitcell");
@@ -256,19 +256,15 @@ $(document).ready(function () {
         var userSunkShip = [];
         for (var i = 0; i < data.opponent_sunkShips.length; i++) {
             oppenetSunkShip = data.opponent_sunkShips[i].locations;
-            console.log(oppenetSunkShip);
             $.each(oppenetSunkShip, function (j, el) {
                 $("#" + "Enemy_" + el).addClass("sunkShip");
-                $("#" + "Enemy_" + el).text("s");
                 // $("#messageAlert" ).html("sunk");
             })
         }
-        for (var i = 0; i < data.user_sunkShips.length; i++) {
-            userSunkShip = data.user_sunkShips[i].locations;
-
-            $.each(userSunkShip, function (j, el) {
+        for (var u = 0; u < data.user_sunkShips.length; u++) {
+            userSunkShip = data.user_sunkShips[u].locations;            $.each(userSunkShip, function (j, el) {
                 $("#" + "User_" + el).addClass("sunkShip");
-                $("#" + "User_" + el).text("s");
+              
             })
         }
 
@@ -486,7 +482,7 @@ $(document).ready(function () {
 
 
                             };
-                            console.log(optionsArray);
+                        
 
                             if (shipLocation.length == 0) {
                                 shipStart = this;
@@ -630,9 +626,6 @@ $(document).ready(function () {
 
     var userShots = [];
     var userSalvos = [];
-    //    var opponentSalvos = [];
-
-
     function shootSalvos() {
 
         $("#opponent-table-rows td").click(function () {
@@ -648,12 +641,12 @@ $(document).ready(function () {
 
                         userShots.push(this);
                         $(userShots).addClass('preSalvo');
-                        console.log(userShots);
+                        
                         userShots.forEach(locID => {
                             var salvoLoc = $(locID).attr('id').split("_")[1];
                             if (!userSalvos.includes(salvoLoc)) {
                                 userSalvos.push(salvoLoc);
-                                console.log(turnNumber)
+                              
 
                                 if (userSalvos.length == 5) {
                                     turnNumber += 1
@@ -710,6 +703,44 @@ $(document).ready(function () {
 
     }
 
+    function getSunkShips(data) {
+         var sunkETable = '';
+        var sunkUTable = '';
+        sunkUTable += '<table class="table table-bordered">' +
+            '<tr>' +
+            '<th>User sunk ships</th>' +
+            '</tr>'
+        for (var i = 0; i < data.user_sunkShips.length; i++) {
+            sunkUTable += '<tr>' +
+                '<td>' + data.user_sunkShips[i].shipType + '</td>' +
+                '</tr>'
+        }
+        sunkUTable += '</table>'
+        $("#sunkUShipsTable").append(sunkUTable);
+
+
+        sunkETable += '<table class="table table-bordered">' +
+            '<tr>' +
+            '<th>Enemy sunk ships</th>' +
+            '</tr>'
+        for (var j = 0; j < data.opponent_sunkShips.length; j++) {
+            sunkETable += '<tr>' +
+                '<td>' + data.opponent_sunkShips[j].shipType + '</td>' +
+                '</tr>'
+        }
+        sunkETable += '</table>'
+        $("#sunkEShipsTable").append(sunkETable);
+
+
+    }
+    
+//    function timeOut(data,urlParam) {
+//    if(data.state.state === "WaitingForSecondPlayer" || data.state.state === 'WaitingForEnemyShips'  || data.state.state === 'WaitingForEnemySalvo'){
+//        setTimeout(function() { window.location =  window.location.href = "/web/game.html?gp=" + urlParam; }, 10000);
+//     
+//    }
+  //  }
+
     function getGameHistory(data) {
         var shipIsHit;
         var uHits;
@@ -738,7 +769,7 @@ $(document).ready(function () {
                     '<tr>' +
                     '<td></td>' +
                     '<td>' +
-                    '<table>' +
+                    '<table class="table table-bordered">' +
                     '<tr>' +
                     '<th>Ship type</th>' +
                     '<th>All hits</th>' +
@@ -756,7 +787,7 @@ $(document).ready(function () {
                     '<td></td>' +
                     '</tr>' +
                     '</table></td>' +
-                    '<td><table>' +
+                    '<td><table class="table table-bordered">' +
                     '<tr>' +
                     '<th>Ship type</th>' +
                     '<th>All hits</th>' +
