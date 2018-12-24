@@ -2,7 +2,6 @@
 package com.codeoftheweb.salvo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -328,7 +327,7 @@ public class SalvoController {
                 sunkShips.add(makeShipDTO(ship));
             }
         }
-        System.out.println (sunkShips.size() + "fun");
+
         return sunkShips;
     }
 
@@ -486,7 +485,7 @@ public class SalvoController {
             } else {
                 currentPlayer.setState(GamePlayer.GameState.MyTurn);
             }
-        }else if(isGameOver(currentPlayer)){
+        } if(game.isFull()&& isGameOver(currentPlayer)){
             currentPlayer.setState(GamePlayer.GameState.GameOver);
             getOpponent(currentPlayer).setState(GamePlayer.GameState.GameOver);
             gamePlayerRepository.save(currentPlayer);
@@ -502,10 +501,8 @@ public class SalvoController {
     private boolean isGameOver(GamePlayer currentPlayer) {
         GamePlayer opponent = getOpponent(currentPlayer);
          boolean gameOver = false;
-        System.out.println(findTurnNumber(currentPlayer) +"ut");
-        System.out.println(findTurnNumber(getOpponent(currentPlayer))+"ot");
+
        if (findTurnNumber(currentPlayer) > 0 && findTurnNumber(currentPlayer) == findTurnNumber(getOpponent(currentPlayer))) {
-           System.out.println(getSunkShips(currentPlayer));
                  if (getSunkShips(currentPlayer).size()== 5 || getSunkShips(getOpponent(currentPlayer)).size() == 5){
                     gameOver = true;
             }
@@ -520,13 +517,7 @@ public class SalvoController {
         if(isGameOver(currentPlayer)){
             gameStateDTO.put("whoWon", whoWon(currentPlayer));
         }
-//        if(isGameOver(currentPlayer)){
-//            currentPlayer.setState(GamePlayer.GameState.GameOver);
-//            getOpponent(currentPlayer).setState(GamePlayer.GameState.GameOver);
-//
-//            gamePlayerRepository.save(currentPlayer);
-//            gamePlayerRepository.save(getOpponent(currentPlayer));
-//        }
+
         return gameStateDTO;
     }
 

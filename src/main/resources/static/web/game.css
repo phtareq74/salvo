@@ -3,9 +3,6 @@
     padding: 0;
 }
 
-.grid{
-
-}
 body {
   width: 100%;
   height: 100%;
@@ -113,14 +110,6 @@ width: 10%;
    
 }
 
-
-
-/*
-.draggable {
-   width: 100px;
-    height: 80px;
-}
-*/
 .possibleArea{
  background-color: #fffeeb;
     opacity: 0.5;
@@ -131,7 +120,6 @@ width: 10%;
 }
 #CarrierContainer,#BattleshipContainer,#DestroyerContainer,#SubmarineContainer,#PatrolBoatContainer{
    display:none; 
-/*    width: 9%*/
 }
 .shipText{
     color:brown;
